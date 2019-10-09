@@ -1,0 +1,20 @@
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+multitenant:
+  dataSources:
+    - tenantId: tenant_1
+      url: jdbc:mysql://localhost:3306/dbtenant1?useSSL=false
+      username: tenant1
+      password: admin123
+      driverClassName: com.mysql.jdbc.Driver
+    - tenantId: tenant_2
+      url: jdbc:mysql://localhost:3306/dbtenant2?useSSL=false
+      username: tenant2
+      password: admin123
+      driverClassName: com.mysql.jdbc.Driver
