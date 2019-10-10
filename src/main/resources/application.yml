@@ -5,16 +5,34 @@ spring:
       ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    database: mysql
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        type: trace
+    generate-ddl: false
 
 multitenant:
-  dataSources:
-    - tenantId: tenant_1
-      url: jdbc:mysql://localhost:3306/dbtenant1?useSSL=false
-      username: tenant1
-      password: admin123
+  master:
+    datasource:
+      url: jdbc:mysql://localhost:3306/masterdb?useSSL=false
+      username: root
+      password: root
       driverClassName: com.mysql.jdbc.Driver
-    - tenantId: tenant_2
-      url: jdbc:mysql://localhost:3306/dbtenant2?useSSL=false
-      username: tenant2
-      password: admin123
-      driverClassName: com.mysql.jdbc.Driver
+      connectionTimeout: 20000
+      maxPoolSize: 10
+      idleTimeout: 300000
+      minIdle: 10
+      poolName: masterdb-connection-pool
+#  dataSources:
+#    - tenantId: tenant_1
+#      url: jdbc:mysql://localhost:3306/dbtenant1?useSSL=false
+#      username: tenant1
+#      password: admin123
+#      driverClassName: com.mysql.jdbc.Driver
+#    - tenantId: tenant_2
+#      url: jdbc:mysql://localhost:3306/dbtenant2?useSSL=false
+#      username: tenant2
+#      password: admin123
+#      driverClassName: com.mysql.jdbc.Driver

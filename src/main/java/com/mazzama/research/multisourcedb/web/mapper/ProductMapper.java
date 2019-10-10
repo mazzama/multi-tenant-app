@@ -1,8 +1,8 @@
-package com.mazzama.research.multisourcedb.mapper;
+package com.mazzama.research.multisourcedb.web.mapper;
 
-import com.mazzama.research.multisourcedb.domain.Product;
-import com.mazzama.research.multisourcedb.dto.ProductRequest;
-import com.mazzama.research.multisourcedb.dto.ProductResponse;
+import com.mazzama.research.multisourcedb.tenant.model.Product;
+import com.mazzama.research.multisourcedb.web.payload.ProductRequest;
+import com.mazzama.research.multisourcedb.web.payload.ProductResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 

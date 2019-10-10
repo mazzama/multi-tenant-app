@@ -1,10 +1,10 @@
-package com.mazzama.research.multisourcedb.controller;
+package com.mazzama.research.multisourcedb.web.controller;
 
-import com.mazzama.research.multisourcedb.domain.Product;
-import com.mazzama.research.multisourcedb.dto.ProductRequest;
-import com.mazzama.research.multisourcedb.dto.ProductResponse;
-import com.mazzama.research.multisourcedb.mapper.ProductMapper;
-import com.mazzama.research.multisourcedb.repository.IProductRepository;
+import com.mazzama.research.multisourcedb.tenant.model.Product;
+import com.mazzama.research.multisourcedb.tenant.repository.ProductRepository;
+import com.mazzama.research.multisourcedb.web.mapper.ProductMapper;
+import com.mazzama.research.multisourcedb.web.payload.ProductRequest;
+import com.mazzama.research.multisourcedb.web.payload.ProductResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class ProductController {
     private static final Logger LOG = LoggerFactory.getLogger(ProductController.class);
 
     @Autowired
-    private IProductRepository productRepository;
+    private ProductRepository productRepository;
 
     @Autowired
     private ProductMapper productMapper;
@@ -30,7 +30,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ProductResponse getProductById(@PathVariable("id") Integer id) {
+    public ProductResponse getProductById(@PathVariable("id") int id) {
         Product productModel = productRepository.findById(id).get();
         LOG.info(productModel.toString());
         ProductResponse productResponse = productMapper.toDto(productModel);

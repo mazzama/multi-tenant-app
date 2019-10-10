@@ -1,4 +1,4 @@
-package com.mazzama.research.multisourcedb.mapper;
+package com.mazzama.research.multisourcedb.web.mapper;
 
 import java.util.List;
 

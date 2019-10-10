@@ -11,9 +11,9 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
-@Configuration
-@EnableJpaRepositories("com.mazzama.research.multisourcedb")
-@EnableTransactionManagement
+//@Configuration
+//@EnableJpaRepositories("com.mazzama.research.multisourcedb")
+//@EnableTransactionManagement
 public class MultiSourceConfiguration {
 
     @Autowired

@@ -1,4 +1,4 @@
-package com.mazzama.research.multisourcedb.dto;
+package com.mazzama.research.multisourcedb.web.payload;
 
 import lombok.Data;
 
