@@ -43,12 +43,15 @@ public class TenantDatabaseConfig {
 
     @Bean(name = "tenantJpaVendorAdapter")
     public JpaVendorAdapter jpaVendorAdapter() {
-        return new HibernateJpaVendorAdapter();
+        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        vendorAdapter.setGenerateDdl(true);
+        return vendorAdapter;
     }
 
     @Bean(name = "tenantTransactionManager")
     public JpaTransactionManager transactionManager(@Qualifier("tenantEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
+        LOG.warn("Entity Manager Factory");
         transactionManager.setEntityManagerFactory(entityManagerFactory);
         return transactionManager;
     }
@@ -73,14 +76,12 @@ public class TenantDatabaseConfig {
                     CurrentTenantIdentifierResolver tenantResolver) {
         LocalContainerEntityManagerFactoryBean emfBean = new LocalContainerEntityManagerFactoryBean();
 
-        // TODO
-
-        emfBean.setPackagesToScan(new String[]{"com.mazzama.research.multisourcedb.tenant.model"});
+        emfBean.setPackagesToScan(new String[]{Product.class.getPackage().getName(), ProductRepository.class.getPackage().getName()});
         emfBean.setJpaVendorAdapter(jpaVendorAdapter());
         emfBean.setPersistenceUnitName("tenantdb-persistence-unit");
 
         Map<String, Object> properties = new HashMap<>();
-        properties.put(org.hibernate.cfg.Environment.MULTI_TENANT, MultiTenancyStrategy.SCHEMA);
+        properties.put(org.hibernate.cfg.Environment.MULTI_TENANT, MultiTenancyStrategy.DATABASE);
         properties.put(org.hibernate.cfg.Environment.MULTI_TENANT_CONNECTION_PROVIDER, connectionProvider);
         properties.put(org.hibernate.cfg.Environment.MULTI_TENANT_IDENTIFIER_RESOLVER, tenantResolver);
         properties.put(org.hibernate.cfg.Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
@@ -89,6 +90,7 @@ public class TenantDatabaseConfig {
         properties.put(org.hibernate.cfg.Environment.HBM2DDL_AUTO, "update");
 
         emfBean.setJpaPropertyMap(properties);
+        LOG.info("Packages to Scan : {}", emfBean);
         LOG.info("tenantEntityManagerFactory set up successfully!");
         return emfBean;
     }

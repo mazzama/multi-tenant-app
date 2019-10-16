@@ -28,8 +28,7 @@ public class DataSourceUtil {
         dataSource.setConnectionTimeout(20000);
         dataSource.setPoolName(tenantConnectionPoolName);
 
-        LOG.info("Configured datasource:" + masterTenant.getTenantId()
-                + ". Connection poolname:" + tenantConnectionPoolName);
+        LOG.info("Configured datasource: {}. Connection pool name: {}", masterTenant.getTenantId(), tenantConnectionPoolName);
         return dataSource;
     }
 }
